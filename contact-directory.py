@@ -1,4 +1,7 @@
 import csv
+import pandas as pd
+
+line = '----------------------------------------------------------------------------------------------'
 
 # Contact directory
 
@@ -19,3 +22,39 @@ with open('contact-directory.csv', 'wt', newline='') as frecord:
     crecord = csv.DictWriter(frecord, ['surname', 'firstName', 'telephone', 'day', 'month', 'year', 'sex'])
     crecord.writeheader()
     crecord.writerows(contact_directory)
+
+with open('contact-directory.csv', 'rt') as freading:
+    creading = csv.DictReader(freading, fieldnames=[''])
+    contact_directory = [row for row in creading]
+
+print(contact_directory)
+
+df = pd.read_csv('contact-directory.csv')
+
+print(df.info())
+
+print(line)
+
+print(df.head())
+
+print(line)
+
+print(df.tail())
+
+print(line)
+
+cols = ["day", "month", "year"]
+df_num = df[cols].apply(pd.to_numeric, errors="coerce")
+
+mean = df_num.mean()
+median = df_num.median()
+mode = df_num.mode().iloc[0]
+min_ = df_num.min()
+max_ = df_num.max()
+
+print("Середнє:\n", mean)
+print("\nМедіана:\n", median)
+print("\nМода:\n", mode)
+print("\nМінімум:\n", min_)
+print("\nМаксимум:\n", max_)
+
